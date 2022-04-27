@@ -1,11 +1,13 @@
 package steps;
 
+import org.aeonbits.owner.ConfigFactory;
 import org.junit.Assert;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import pageObjects.shopByDepartmentObjects;
+import utility.config;
 
 import java.time.Duration;
 
@@ -14,17 +16,18 @@ import static utility.commonMethods.*;
 public class shopByDepartmentSteps {
 
     pageObjects.shopByDepartmentObjects shopByDepartmentObjects = new shopByDepartmentObjects();
+    config config = ConfigFactory.create(utility.config.class);
     WebDriver driver;
     WebDriverWait wait;
 
     public void SetupDriver(WebDriver driver) {
         this.driver = driver;
         PageFactory.initElements(driver, shopByDepartmentObjects);
-         this.wait =new WebDriverWait(driver, Duration.ofSeconds(20));
+        this.wait = new WebDriverWait(driver, Duration.ofSeconds(20));
     }
 
     public void openAmazon() {
-        driver.get("https://www.amazon.in/");
+        driver.get(config.url());
     }
 
     public void clickHamburgerMenu() {
@@ -32,7 +35,7 @@ public class shopByDepartmentSteps {
         wait.until(ExpectedConditions.elementToBeClickable(shopByDepartmentObjects.hamburgerMenu));
         Assert.assertTrue(shopByDepartmentObjects.hamburgerMenu.isDisplayed());
 //        shopByDepartmentObjects.hamburgerMenu.click();
-                clickOn(shopByDepartmentObjects.hamburgerMenu);
+        clickOn(shopByDepartmentObjects.hamburgerMenu);
     }
 
     public void shopByDepartmentHeaderShouldDisplay() {
@@ -47,11 +50,10 @@ public class shopByDepartmentSteps {
         clickOn(shopByDepartmentObjects.tv_appliances_electronics);
     }
 
-    public void userClicksOnTelevision(){
+    public void userClicksOnTelevision() {
         wait.until(ExpectedConditions.elementToBeClickable(shopByDepartmentObjects.televisions));
-        shopByDepartmentObjects.televisions.click();
-
+//        shopByDepartmentObjects.televisions.click();
+        clickOn(shopByDepartmentObjects.televisions);
     }
-
 
 }
